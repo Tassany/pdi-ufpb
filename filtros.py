@@ -1,8 +1,12 @@
 import numpy as np
 
 import math
+import time
 
 from PIL import Image
+
+
+inicio = time.time()
 
 
 def ler_arquivo(txt_path):
@@ -174,7 +178,8 @@ def box_filter(image_path, filter_size):
             # Aply the new values to the pixel
             filtered_image.putpixel(
                 (x, y), (average_value_r, average_value_g, average_value_b))
-
+    fim = time.time()
+    print(fim - inicio)
     return filtered_image
 
 

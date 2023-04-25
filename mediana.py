@@ -62,7 +62,7 @@ image_file = "DancingInWater.jpg"
 
 # Apply median filter
 
-m = 3
-n = 3
+m = 5
+n = 5
 filtered_image = median_filter(image_file, (m, n))
 filtered_image.save('resultados/median_filter_' + image_file)
