@@ -44,7 +44,7 @@ with open(filename, 'r') as arquivo_csv:
         S.append(s)
         T.append(t)
 
-intervalo_ms = 30000  # 30 segundos em milissegundos
+intervalo_ms = 15000  # 30 segundos em milissegundos
 
 num_intervalos = int(len(T) / intervalo_ms)
 
@@ -53,6 +53,8 @@ Y_split =np.array_split(Y, num_intervalos)
 Z_split =np.array_split(Z, num_intervalos)
 T_split =np.array_split(T, num_intervalos)
 
+nperseg = 1024  # Número de pontos por segmento
+noverlap = nperseg // 2  # Sobreposição entre segmentos
 
 for i in range(num_intervalos):
     intervaloX = X_split[i]
@@ -60,13 +62,10 @@ for i in range(num_intervalos):
     intervaloZ = Z_split[i]
     tempoIntervalo = T_split[i]
 
-    spectrumX = np.fft.fft(intervaloX)
-    spectrumY = np.fft.fft(intervaloY)
-    spectrumZ = np.fft.fft(intervaloZ)
-    fequencia = np.fft.fftfreq(len(tempoIntervalo), tempoIntervalo[1]-tempoIntervalo[0])
-
+    fs = 1.0 / (tempoIntervalo[1] - tempoIntervalo[0])
+    
      # Plotar gráfico do intervalo
-    plt.plot(fequencia, np.abs(spectrumX))
+    plt.specgram(intervaloX, NFFT=nperseg, Fs=fs, noverlap=noverlap, cmap='inferno')
     plt.xlabel('Frequência (Hz)')
     plt.ylabel('Amplitude')
     plt.title(f'Espectro de Frequência - Eixo X - Intervalo {i+1}')
@@ -83,7 +82,7 @@ for i in range(num_intervalos):
     plt.clf()
 
     # Plotar gráfico do intervalo
-    plt.plot(fequencia, np.abs(spectrumY))
+    plt.specgram(intervaloY, NFFT=nperseg, Fs=fs, noverlap=noverlap, cmap='inferno')
     plt.xlabel('Frequência (Hz)')
     plt.ylabel('Amplitude')
     plt.title(f'Espectro de Frequência - Eixo Y - Intervalo {i+1}')
@@ -100,7 +99,7 @@ for i in range(num_intervalos):
     plt.clf()
 
     # Plotar gráfico do intervalo
-    plt.plot(fequencia, np.abs(spectrumZ))
+    plt.specgram(intervaloZ, NFFT=nperseg, Fs=fs, noverlap=noverlap, cmap='inferno')
     plt.xlabel('Frequência (Hz)')
     plt.ylabel('Amplitude')
     plt.title(f'Espectro de Frequência - Eixo Z - Intervalo {i+1}')
