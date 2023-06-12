@@ -18,9 +18,12 @@ batch_size = 32
 img_height = 640
 img_width = 480
 
+dataset_url_y = "https://drive.google.com/u/0/uc?id=1Y8uGtvvlfb-Qzaoq6GjrKVW3-wQR3f_v&export=download"
+dataset_url_z = "https://drive.google.com/u/0/uc?id=1mCUQ9_my5UwKQMOXwz0S-QMXgoMTcSC0&export=download"
+dataset_url_all = "https://drive.google.com/u/0/uc?id=10yGp5PkZAjjcVYO0RDHM1fOQwt8OUtCR&export=download"
 
-dataset_url = "https://drive.google.com/u/0/uc?id=1kTd6gORuUlvsPzjZ8MumayDJXW8_rZx0&export=download"
-data_dir = tf.keras.utils.get_file('eixo_x', origin=dataset_url, untar=True)
+dataset_url_x = "https://drive.google.com/u/0/uc?id=1kTd6gORuUlvsPzjZ8MumayDJXW8_rZx0&export=download"
+data_dir = tf.keras.utils.get_file('eixo_x', origin=dataset_url_x, untar=True)
 data_dir = pathlib.Path(data_dir)
 
 train_ds = tf.keras.utils.image_dataset_from_directory(
@@ -101,7 +104,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 
-epochs = 15
+epochs = 30
 history = model.fit(
     train_ds,
     validation_data=val_ds,
@@ -135,7 +138,6 @@ plt.show()
 # eixoy_url = "https://raw.githubusercontent.com/Tassany/pdi-ufpb/main/segundo_trabalho/eixo_y/accel_80_F6.csv_eixo_y/grafico_intervalo_10_Y.png"
 # eixoy_path = tf.keras.utils.get_file('eixo_y', origin=eixoy_url, untar=True)
 eixoy_path = "/home/tassany/Desktop/UFPB/PDI/pdi-ufpb/segundo_trabalho/eixo_x/accel_80_F0_eixo_x/grafico_intervalo_11_x.png"
-
 # img = tf.keras.utils.load_img(
 #     eixoy_path, target_size=(img_height, img_width)
 # )
